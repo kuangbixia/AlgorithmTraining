@@ -16,8 +16,6 @@ int main() {
     int p2 = 0;
     vector<int>nums;
 
-    cout << 0 - 1 << endl;
-
     while (nums.size() < pos + 1) {
         if (p1 == length1 && p2 < length2) {
             nums.push_back(nums2[p2]);
