@@ -11,7 +11,7 @@ struct ListNode {
 
 
 int main() {
-    /*
+    
     ListNode* three = new ListNode(3);
     ListNode* two = new ListNode(4);
     ListNode* l1 = new ListNode(2);
@@ -22,11 +22,12 @@ int main() {
     ListNode* l2 = new ListNode(5);
     two->next = three;
     l2->next = two;
-    */
     
+
+    /*
     ListNode* l1 = new ListNode(5);
     ListNode* l2 = new ListNode(5);
-
+    */
 
     int carry = 0;
     int sum = l1->val + l2->val;
@@ -52,7 +53,8 @@ int main() {
         ListNode* newNode = new ListNode(sum);
         (*p)->next = newNode;
 
-        // ERROR:p = &newNode;
+        // ERROR:p会一直指向newNode的地址
+        //p = &newNode;
         p = &(*p)->next;
 
         if (l1 != nullptr) {
