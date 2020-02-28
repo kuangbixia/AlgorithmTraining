@@ -41,3 +41,43 @@
 ``` C++
     string subString = s.substr(i, 1);
 ```
+##### 四、Stack 容器
+- 常用函数
+``` C++
+    stack<int> name; // 声明，类似vector 
+    stack.push(element); // 压入新元素
+    stack.pop(); // 去除顶部元素
+    stack.top(); // 访问顶部元素
+    stack.size(); // 元素个数
+```
+##### 五、Binary Tree二叉树
+- 构造二叉树，节点定义
+``` C++
+    struct TreeNode{
+        int val;
+        TreeNode* left;
+        TreeNode* right;
+        TreeNode(int x):val(x),left(NULL),right(NULL){}
+    };
+```
+- [已知前序遍历和中序遍历，递归实现重构二叉树](https://www.nowcoder.com/profile/632328871/codeBookDetail?submissionId=67091042)
+- **TODO: 实现前序遍历，中序遍历，后序遍历**
+##### 六、字符指针
+- 计算长度跟字符串类似，要加上最后'/0'
+``` C++
+    char _str[] = " helloworld";
+	char* str = _str;
+	int length = 12;
+```
+- 指向的是字符，不是字符串，比较字符时要用单引号''，不是双引号""
+- 可以通过 + 运算符移动指针，访问不同的字符
+``` C++
+    int blank = 0;
+    for (int i = 0; i < length; i++) {
+        cout << *(str + i) << endl;
+        if (*(str+i)==' ') {
+            blank++;
+        }
+    }
+```
+- 可以扩充指针指向的空间，延长字符串
