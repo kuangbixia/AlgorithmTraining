@@ -22,7 +22,7 @@
 ``` C++
     ListNode** p = &head;
 ```
-在链表尾部追加新节点，正确如下：
+在链表尾部追加新节点，正确如下：**PS：当使用new一个新节点时，会重新分配新的空间，即newNode的地址会不断改变。(*p)->next不会指向同一个地址。**
 ``` C++
     ListNode* newNode = new ListNode(sum);
     (*p)->next = newNode;
