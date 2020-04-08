@@ -2,16 +2,63 @@
 #include<vector>
 using namespace std;
 
+int ans = 0;
+
+void merge(vector<int>b, vector<int>c, vector<int>&a) {
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    while (i < b.size() && j < c.size()) {
+        if (b[i] < c[j]) {
+            a[k++] = b[i++];
+        }
+        else {
+            a[k++] = c[j++];
+            ans += (b.size() - i);
+            ans %= 1000000007;
+        }
+    }
+    if (i == b.size()) {
+        while (j < c.size()) {
+            a[k++] = c[j++];
+        }
+    }
+    if (j == c.size()) {
+        while (i < b.size()) {
+            a[k++] = b[i++];
+            ans += (c.size() - j);
+            ans %= 1000000007;
+        }
+    }
+}
+
+void mergesort(vector<int>&a) {
+    if (a.size() > 1) {
+        vector<int>b;
+        vector<int>c;
+        int i = 0;
+        for (; i < a.size() / 2; i++) {
+            b.push_back(a[i]);
+        }
+        for (; i < a.size(); i++) {
+            c.push_back(a[i]);
+        }
+        mergesort(b);
+        mergesort(c);
+        merge(b, c, a);
+    }
+}
 
 int InversePairs(vector<int> data) {
-    vector<int>bigger;
-    bigger.push_back(0);
-    int cnt = 0;
-    
-    return cnt%1000000007;
+    if (data.size() < 2) {
+        return 0;
+    }
+    mergesort(data);
+    return ans;
 }
 
 int main() {
-    vector<int>input({ 364,637,341,406,747,995,234,971,571,219,993,407,416,366,315,301,601,650,418,355,460,505,360,965,516,648,727,667,465,849,455,181,486,149,588,233,144,174,557,67,746,550,474,162,268,142,463,221,882,576,604,739,288,569,256,936,275,401,497,82,935,983,583,523,697,478,147,795,380,973,958,115,773,870,259,655,446,863,735,784,3,671,433,630,425,930,64,266,235,187,284,665,874,80,45,848,38,811,267,575 });
+    vector<int>input({ 1,2,13,4,5,6,7,0 });
     cout << InversePairs(input) << endl;
+    return 0;
 }
