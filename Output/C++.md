@@ -50,8 +50,91 @@
 - 提供全局变量的引用
 - 对**所有的程序文件**都可见
 
+#### 定义常量 √ √ √ √
+##### const
+- const的初始化：const对象一旦创建就不能修改，所以const对象一定要初始化，可以用非const对象来初始化。
+- const的作用域：只在创建const对象的文件内有效。可以用extern关键字来声明const 变量，使得可以在不同文件之间共享。
+- const与引用：
+    - 对常量的引用必须用const引用
+    ``` C++
+    const int a=42;
+    const int&b=a;
+    ```
+    - const引用不能修改所引用的值
+- const与指针
+    - 指向常量的指针必须用const指针
+    ``` C++
+    const int a=42;
+    const int* b=&a;
+    ```
+    - 常量指针 vs 指针常量
+        - 常量指针：指向常量的指针
+        - 指针常量：指针保存（指向）的地址是常量
+        ``` C++
+        int num=0;
+        const int* ptr1=&num; // 常量指针->(const int)* ptr1
+        int* const ptr2=&num; // 指针常量，一直指向num地址->int* (const ptr2)
+        ```
+- const与函数参数
+    - 注意非常量引用不能赋给常量引用
+- const与类
+    - const成员变量：在类的定义中声明const类型，但是不可以初始化，必须在构造函数中初始化。
+    - const成员函数：不可以修改数据成员，不可以调用非const成员函数。
 
-## 函数
+##### #define 宏
+- 宏/常量：使用#define来创建符号常量
+``` C++
+#include <iostream>
+using namespace std;
+ 
+#define PI 3.14159
+ 
+int main ()
+{
+ 
+    cout << "Value of PI :" << PI << endl; 
+ 
+    return 0;
+}
+```
+- 参数宏：使用#define来定义一个带有参数的宏，相当于函数来使用
+``` C++
+#include <iostream>
+using namespace std;
+ 
+#define MIN(a,b) (a<b ? a : b)
+ 
+int main ()
+{
+   int i, j;
+   i = 100;
+   j = 30;
+   cout <<"较小的值为：" << MIN(i, j) << endl;
+ 
+    return 0;
+}
+```
+#### 指针和引用
+##### 指针
+- 指针 vs 数组名
+    - 指向数组开头的指针可以通过指针的算术运算来访问数组
+    -  数组名也可以应用*，+，-等运算符，但不可以使用++，--，因为修改数组名的值是非法的，数组名是一个指向数组开头的**常量**，不能作为左值
+- 指向指针的指针
+冷静区别 & 是对变量取地址，* 是对变量取值即可。
+#### 引用
+引用相当于是一个变量的别名。
+#### 指针和引用的区别 √ √
+- 引用必须是对一个已有对象的引用，不存在空引用。可以有空指针，而且最好在创建指针时初始化为NULL。
+- 引用必须在创建时初始化。指针可以随时初始化。
+``` C++
+int i = 17;
+int&  r = i;
+```
+- 一旦引用被初始化为一个对象，就不能改变为另一个对象的引用。指针可以随时指向另一个对象。
+- 指针有自己的一块空间，而引用只是一个别名。sizeof(指针)为4，而sizeof(引用)为引用对象的大小。
+
+
+## C++函数
 #### 函数传参
 ##### 传值调用
 - 将参数的实际**值**复制给函数的形式参数
@@ -123,24 +206,6 @@ int& func() {
 }
 ```
 
-## 指针和引用
-#### 指针
-##### 指针 vs 数组名
-- 指向数组开头的指针可以通过指针的算术运算来访问数组
--  数组名也可以应用*，+，-等运算符，但不可以使用++，--，因为修改数组名的值是非法的，数组名是一个指向数组开头的**常量**，不能作为左值
-##### 指向指针的指针
-冷静区别 & 是对变量取地址，* 是对变量取值即可。
-#### 引用
-引用相当于是一个变量的别名。
-#### 指针和引用的区别 √ √
-- 引用必须是对一个已有对象的引用，不存在空引用。可以有空指针，而且最好在创建指针时初始化为NULL。
-- 引用必须在创建时初始化。指针可以随时初始化。
-``` C++
-int i = 17;
-int&  r = i;
-```
-- 一旦引用被初始化为一个对象，就不能改变为另一个对象的引用。指针可以随时指向另一个对象。
-- 指针有自己的一块空间，而引用只是一个别名。sizeof(指针)为4，而sizeof(引用)为引用对象的大小。
 
 ## C++数据抽象 & 数据封装
 - 数据抽象：仅向用户暴露接口而隐藏具体的实现细节的机制。用**类**来定义抽象的数据类型。
@@ -151,13 +216,12 @@ int&  r = i;
 - **不可以被实例化**
 - 被当作**接口**来使用
 
-## C++面向对象
-#### 类
-##### 访问修饰符
+## C++面向对象——类
+#### 访问修饰符
 - public 公有成员：在类的外部可访问
 - private 私有成员：类定义中未加修饰符的**默认为私有**，除了**类内部和友元函数**，在类的外部不可访问
 - protected 受保护成员：除了**派生类**，在类的外部不可访问
-##### 类的继承
+#### 类的继承
 - is a关系
 - 可以多继承
 ``` C++
@@ -170,7 +234,7 @@ class <派生类名>:<继承方式1><基类名1>,<继承方式2><基类名2>,…
     - public 继承：基类public，protected，private ->派生类public，protected，private
     - protected 继承：基类public，protected，private ->派生类protected，protected，private
     - private 继承：基类public，protected，private ->派生类private，private，private
-##### 构造函数 & 析构函数
+#### 构造函数 & 析构函数
 - 构造函数：创建类的新对象时执行的函数。
     - **不返回任何类型，也不返回void类型**
     - 默认的构造函数不带参数，必要时可以自己添加参数
@@ -191,7 +255,20 @@ class <派生类名>:<继承方式1><基类名1>,<继承方式2><基类名2>,…
     - 有助于在跳出程序时，释放资源
 - **析构函数什么时候需要设置成虚函数？**
 
-##### 静态成员 static
+#### 友元函数 & 友元类 √
+- **友元函数**
+    - 不是成员函数
+    - 在函数原型前加关键字**friend**
+
+- 友元类
+    - 在类的声明前加关键字**friend**
+    - 友元类的所有成员函数都是那个类的友元函数
+#### 内联函数 ？
+- 在函数原型前添加关键字**inline**
+- 在类定义中定义的函数都是内联函数，即使没有使用inline关键字
+- 如果一个函数是内联函数，那么在编译时，编译器会将该函数的代码副本放置在每个调用该函数的地方。(减少编译时在调用时写成函数开销？)
+
+#### 静态成员 static
 **1. 静态成员变量**
 - 无论创建多少个类的对象，**静态成员都只有一个副本**
 - 静态成员在类的所有对象中是共享的
@@ -214,19 +291,8 @@ cout << "Total objects: " << Box::objectCount << endl;
          return objectCount;
       }
 ```
-##### 友元函数 & 友元类 √
-- **友元函数**
-    - 不是成员函数
-    - 在函数原型前加关键字**friend**
 
-- 友元类
-    - 在类的声明前加关键字**friend**
-    - 友元类的所有成员函数都是那个类的友元函数
-##### 内联函数 ？
-- 在函数原型前添加关键字**inline**
-- 在类定义中定义的函数都是内联函数，即使没有使用inline关键字
-- 如果一个函数是内联函数，那么在编译时，编译器会将该函数的代码副本放置在每个调用该函数的地方。(减少编译时在调用时写成函数开销？)
-##### this指针
+#### this指针
 - 每个对象都可以通过this指针访问自己的地址
 - this指针是类的所有成员函数的隐式参数，可以在成员函数内部直接使用this指针访问调用对象
 ``` C++
@@ -240,16 +306,13 @@ cout << "Total objects: " << Box::objectCount << endl;
       }
 ```
 - 友元函数没得使用this指针，因为友元函数不是类的成员函数
-##### 指向类的指针
-- 类似于指向结构体的指针
-- 和所有指针一样，在**使用指针前必须先初始化指针**
 
 ## C++多态
 #### 静态多态 vs 动态多态
-##### 静态多态
+##### 1. 静态多态
 - 通过**函数重载**
 - 在**编译**的时候就确定了实际调用的函数
-##### 动态多态
+##### 2. 动态多态
 - 通过**虚函数**机制实现
 - 在**运行**时，通过实际的调用对象确定调用的是基类还是派生类的同名成员函数
 
@@ -281,15 +344,17 @@ cout << "Total objects: " << Box::objectCount << endl;
 ``` C++
 virtual int area() = 0;
 ```
-#### 没有使用多态
+
+#### 没有使用多态 vs 使用多态
+##### 1. 没有使用多态
 先调用派生类析构函数，后（总是会）调用基类析构函数
 ``` C++
     ClxDerived *p =  new ClxDerived;
     p->DoSomething();
     delete p;
 ```
-#### 使用多态
-##### 基类析构函数不是虚函数
+##### 2. 使用多态
+- 基类**析构函数**不是虚函数
 只调用基类析构函数，没有释放派生类资源，造成内存泄漏
 ``` C++
     ClxBase *p =  new ClxDerived;
@@ -297,7 +362,7 @@ virtual int area() = 0;
     p->DoSomething();
     delete p;
 ```
-##### 基类析构函数是虚函数
+- 基类**析构函数**是虚函数
 先调用派生类析构函数，后（总是会）调用基类析构函数
 ``` C++
     ClxBase *p =  new ClxDerived;
@@ -384,6 +449,44 @@ int main( )
 调用析构函数！
 调用析构函数！
 ```
+
+## [C++模板](https://www.runoob.com/cplusplus/cpp-templates.html) √ √ √ √
+- 模板是泛型编程的基础，泛型编程就是以一种独立于任何特定类型的方式编写代码
+- 库容器也就使用了模板的概念
+#### 函数模板
+``` C++
+template <class type> 
+ret-type func-name(parameter list)
+{
+   // 函数的主体
+}
+```
+#### 类模板
+``` C++
+template <class T>
+class Stack { 
+  private: 
+    vector<T> elems;     // 元素 
+ 
+  public: 
+    void push(T const&);  // 入栈
+    void pop();               // 出栈
+    T top() const;            // 返回栈顶元素
+    bool empty() const{       // 如果为空则返回真。
+        return elems.empty(); 
+    } 
+}; 
+```
+类定义的函数成员的实现要带有template开头
+``` C++
+template <class T>
+void Stack<T>::push (T const& elem) 
+{ 
+    // 追加传入元素的副本
+    elems.push_back(elem);    
+} 
+```
+
 
 ## C++资源库
 #### C++STL 标准模板库
@@ -482,106 +585,4 @@ int main() {
     [=]     // 任何被使用到的外部变量都隐式地以传值方式加以引用。
     [&, x]  // x显式地以传值方式加以引用。其余变量以引用方式加以引用。
     [=, &z] // z显式地以引用方式加以引用。其余变量以传值方式加以引用。
-```
-
-## C++定义常量 √ √ √ √
-#### const
-- const的初始化：const对象一旦创建就不能修改，所以const对象一定要初始化，可以用非const对象来初始化。
-- const的作用域：只在创建const对象的文件内有效。可以用extern关键字来声明const 变量，使得可以在不同文件之间共享。
-- const与引用：
-    - 对常量的引用必须用const引用
-    ``` C++
-    const int a=42;
-    const int&b=a;
-    ```
-    - const引用不能修改所引用的值
-- const与指针
-    - 指向常量的指针必须用const指针
-    ``` C++
-    const int a=42;
-    const int* b=&a;
-    ```
-    - 常量指针 vs 指针常量
-        - 常量指针：指向常量的指针
-        - 指针常量：指针保存（指向）的地址是常量
-        ``` C++
-        int num=0;
-        const int* ptr1=&num; // 常量指针->(const int)* ptr1
-        int* const ptr2=&num; // 指针常量，一直指向num地址->int* (const ptr2)
-        ```
-- const与函数参数
-    - 注意非常量引用不能赋给常量引用
-- const与类
-    - const成员变量：在类的定义中声明const类型，但是不可以初始化，必须在构造函数中初始化。
-    - const成员函数：不可以修改数据成员，不可以调用非const成员函数。
-
-#### #define
-- 宏/常量：使用#define来创建符号常量
-``` C++
-#include <iostream>
-using namespace std;
- 
-#define PI 3.14159
- 
-int main ()
-{
- 
-    cout << "Value of PI :" << PI << endl; 
- 
-    return 0;
-}
-```
-- 参数宏：使用#define来定义一个带有参数的宏，相当于函数来使用
-``` C++
-#include <iostream>
-using namespace std;
- 
-#define MIN(a,b) (a<b ? a : b)
- 
-int main ()
-{
-   int i, j;
-   i = 100;
-   j = 30;
-   cout <<"较小的值为：" << MIN(i, j) << endl;
- 
-    return 0;
-}
-```
-
-## [C++模板](https://www.runoob.com/cplusplus/cpp-templates.html) √ √ √ √
-- 模板是泛型编程的基础，泛型编程就是以一种独立于任何特定类型的方式编写代码
-- 库容器也就使用了模板的概念
-#### 函数模板
-``` C++
-template <class type> 
-ret-type func-name(parameter list)
-{
-   // 函数的主体
-}
-```
-#### 类模板
-``` C++
-template <class T>
-class Stack { 
-  private: 
-    vector<T> elems;     // 元素 
- 
-  public: 
-    void push(T const&);  // 入栈
-    void pop();               // 出栈
-    T top() const;            // 返回栈顶元素
-    bool empty() const{       // 如果为空则返回真。
-        return elems.empty(); 
-    } 
-}; 
-```
-类定义的函数成员的实现要带有template开头
-``` C++
-template <class T>
-void Stack<T>::push (T const& elem) 
-{ 
-    // 追加传入元素的副本
-    elems.push_back(elem);    
-} 
 ```
