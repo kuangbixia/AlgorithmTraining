@@ -3,62 +3,29 @@ using namespace std;
 
 bool match(char* str, char* pattern)
 {
-    int si = 0;
-    int pi = 0;
-    if (str[si] == '\0') {
-        if (pattern[pi] == '\0') {
-            return true;
-        }
-        while (pattern[pi] != '\0') {
-            if (pattern[pi + 1] != '*') {
-                return false;
-            }
-            else {
-                pi += 2;
-            }
-        }
-    }
-    while (*(pattern + pi) != '\0') {
-        if (pattern[pi] == '.') {
-            pattern[pi] = str[si];
-        }
-        if (pattern[pi] == str[si]) {
-            if (pattern[pi + 1] == '*') {
-                int pl = 1;
-                int sl = 1;
-                while (str[si + sl] == str[si]) {
-                    sl++;
-                }
-                while (pattern[pi + pl + 1] == pattern[pi]) {
-                    pl++;
-                }
-                if (pl - sl > 1) {
-                    return false;
-                }
-                pi += (pl + 1);
-                si += sl;
-            }
-            else {
-                pi++;
-                si++;
-            }
-        }
-        else {
-            if (pattern[pi + 1] == '*') {
-                pi += 2;
-                si++;
-            }
-            else {
-                return false;
-            }
-        }
-    }
-    if (str[si] == '\0') {
+    // 匹配完毕
+    if (str[0] == '\0' && pattern[0] == '\0') {
         return true;
     }
-    else {
-        return false;
+    // '*'前的符号不出现
+    if (pattern[0] != '\0' && pattern[1] == '*') {
+        if (match(str, pattern + 2)) {
+            return true;
+        }
     }
+    // 首字符匹配，包括匹配了pattern中的'.'
+    if (pattern[0] == str[0] || (str[0] != '\0' && pattern[0] == '.')) {
+        if (match(str + 1, pattern + 1)) {
+            return true;
+        }
+        // pattern[0]后面可能是'*'，表示str[0]可能还会出现
+        if (pattern[1] == '*') {
+            if (match(str + 1, pattern)) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 int main() {

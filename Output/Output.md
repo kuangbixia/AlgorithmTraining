@@ -54,6 +54,7 @@
     st.pop(); // 去除顶部元素
     st.top(); // 访问顶部元素
     st.size(); // 元素个数
+    st.cleat(); // 清空容器/删除容器
 ```
 - 判断出栈序列是否合法
 1. [出栈序列中元素i之后的所有**在入栈序列中排在i之前**的元素j->k必须倒序排列，即k->j。](https://www.nowcoder.com/profile/632328871/codeBookDetail?submissionId=67471967)
