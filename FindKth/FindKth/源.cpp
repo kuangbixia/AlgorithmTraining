@@ -3,6 +3,11 @@
 #include<algorithm>
 using namespace std;
 
+template<typename T1,typename T2>
+auto add(T1 a, T2 b) {
+    return a + b;
+}
+
 int findKth(int k) {
     // write code here
     vector<int>v( k + 1,1 );
@@ -34,7 +39,7 @@ int findKth(int k) {
 }
 
 int main() {
-    vector<int>test({ 1,2,3,4,5 });
+    /*vector<int>test({ 1,2,3,4,5 });
     test.push_back(6);
     auto end = test.end() - 1;
     cout << *end << endl;
@@ -44,6 +49,12 @@ int main() {
     while (it != test.end()) {
         cout << *it << endl;
         it++;
-    }
+    }*/
+    /*vector<int>a{ 1,2,3 };
+    vector<vector<int>>b{ {1},{2},{3} };
+    for_each(a.begin(), a.end(), [](int val) {
+        cout << val << endl;
+        });*/
+    cout << add(1, 3.14) << endl;
     return 0;
 }
