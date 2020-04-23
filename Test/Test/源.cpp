@@ -22,7 +22,7 @@ int main() {
 	while (s >> num) {
 		arr.push_back(num);
 	}*/
-	vector<int>arr;
+	/*vector<int>arr;
 	int num;
 	while (cin >> num) {
 		arr.push_back(num);
@@ -32,6 +32,11 @@ int main() {
 	}
 	for (int i = 0; i < arr.size(); i++) {
 		cout << arr[i] << " ";
-	}
+	}*/
+	auto func = []()->int&{
+		int a = 0;
+		return a;
+	};
+	cout << func() << endl;
 	return 0;
 }
