@@ -7,7 +7,7 @@
 - 去掉重复元素：先sort(algorithm头文件)排序，再unique(algorithm头文件)将相邻重复的元素放到vector尾部，然后erase尾部的重复元素。**TODO: 迭代器知识有待学习。**
 ``` C++
     sort(counts.begin(), counts.end());
-    counts.erase(unique(counts.begin(), counts.end()), counts.end();
+    counts.erase(unique(counts.begin(), counts.end()), counts.end());
 ```
 若只需要计算不重复元素的个数，简便如下：
 ```C++
@@ -57,7 +57,7 @@
     st.pop(); // 去除顶部元素
     st.top(); // 访问顶部元素
     st.size(); // 元素个数
-    st.cleat(); // 清空容器/删除容器
+    st.clear(); // 清空容器/删除容器
 ```
 - 判断出栈序列是否合法
 1. [出栈序列中元素i之后的所有**在入栈序列中排在i之前**的元素j->k必须倒序排列，即k->j。](https://www.nowcoder.com/profile/632328871/codeBookDetail?submissionId=67471967)
