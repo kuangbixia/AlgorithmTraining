@@ -24,7 +24,21 @@
 因此，一般要转换方式，比如一开始就初始化整个vector，通过更新指定位置的元素，取代添加元素的需求。
 
 #### map 容器
-- 插入数据，可用**数组**的方式插入
+- 不允许出现重复键值
+- 所有元素会自动排序
+- key不可以修改，但value可以修改
+- 常用函数
+``` C++
+    map<int,string>amap;
+    int i=1;
+    string str="aaa";
+    amap.insert(make_pair(i,str)); // 插入元素，需要查找，效率低
+    amap.erase(it); // 删除指定位置/迭代器的元素，返回下一个元素的位置/迭代器
+    amap.erase(i); // 删除指定key的元素，跟set一样，返回删除元素的个数，0或1，其实标识了map内是否有指定元素
+    amap.clear(); // 清除整个map
+    amap.find(i); // 查找指定key的元素，返回指定key的元素的位置/迭代器
+```
+- 插入数据，可用**数组**的方式插入，比insert()好用
 ``` C++
     map<int, int>temp;
     for (int i = 0; i < data.size(); i++) {
@@ -48,6 +62,36 @@
         }
     }
 ```
+
+#### multimap
+- 允许key重复
+- multimap在插入时，调用的是红黑树的insert_equal，而map调用的是insert_unique
+- 其他功能跟map基本一样
+
+#### set 集合
+- 不允许出现重复键值
+- 所有元素会自动排序
+- 只有key，没有value
+- 不能通过迭代器来改变set的值，因为set没有值，它的值就是它的键
+ - 要修改键值的话，首先要删除这个键，然后调节平衡
+ - 之后插入修改后的键值，再调节平衡
+ - 会导致迭代器失效，不知道该指向哪里
+- 常用函数
+``` C++
+    set<string> aset;
+    string in="aaa";
+    aset.insert(in);
+    aset.erase(in); // 返回擦除元素的个数，0或1，标识原本是否有这个元素
+    aset.clear(); // 清除整个set
+    aset.find(in); // 返回迭代器/位置
+    aset.count(in); // 返回指定元素的个数，0或1，标识这个元素是否在集合中
+    aset.lower_bound(in); // 返回小于指定元素的第一个可插入的位置
+    aset.upper_bound(in); // 返回大于指定元素的第一个可插入的位置
+```
+#### multiset
+- 允许出现重复键值
+- multiset在插入时，调用的是红黑树的insert_equal，而set调用的是insert_unique
+- 其他功能跟set基本一样
 
 #### Stack 容器
 - 常用函数
