@@ -14,7 +14,7 @@ class Cstudent
 
 public:
 
-    Cstudent() { name = '\0'; age = 0; gradeandclass = '\0'; }
+    Cstudent() { name = "shazi"; age = 0; gradeandclass = "first"; }
     Cstudent(string a, int b, string c);
 
     void show();

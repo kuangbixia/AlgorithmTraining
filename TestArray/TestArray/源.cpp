@@ -1,4 +1,5 @@
 #include<iostream>
+#include<map>
 using namespace std;
 
 #define add(a,b)(a+b)
@@ -73,11 +74,18 @@ int main() {
 	cout << arr << endl;
 	testArray(arr);*/
 
-	int& b = testReturn();
+	/*int& b = testReturn();
 	b = 100;
 	cout << &b << endl;
 	cout << b << endl;// bug
-	testReturn();
+	testReturn();*/
+
+	map<int, int, greater<int>>mp;
+	mp[3] = 30;
+	mp[6] = 15;
+	for (auto it = mp.begin(); it != mp.end(); it++) {
+		cout << (*it).first << endl;
+	}
 	return 0;
 }
 

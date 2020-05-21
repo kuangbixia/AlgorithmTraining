@@ -1,10 +1,11 @@
 # 复盘
 ## 计算机网络
-#### 四个层
+#### 五个层
 - 应用层（HTTP，DNS）
-- 传输层（TCP）
+- 传输层（TCP，UDP）
 - 网络层（IP）
 - 链路层（ARP）
+- 物理层
 #### a day in the life of a web request
 ##### 1. 连接到网络
 - 接收端：DHCP服务器

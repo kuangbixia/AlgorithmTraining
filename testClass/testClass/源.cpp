@@ -6,12 +6,15 @@ using namespace std;
 int main()
 
 {
-    Cstudent shazi;
+    /*Cstudent shazi;
     shazi.show();
 
     Cstudent stu("华安", 14, "三年二班");
 
-    stu.show();
+    stu.show();*/
+
+    /*Cstudent* p = NULL;
+    p->show();*/
 
     return 0;
 

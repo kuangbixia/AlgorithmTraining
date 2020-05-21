@@ -585,8 +585,8 @@ math/malloc.h等
 - 特点：
     - 只能快速访问最开始和最后的元素
     - 可以快速在任何位置添加或删除元素
-##### deque
-- 底层是双端队列
+##### deque双端队列
+- 底层是可变长数组，跟vector一样
 - 支持在两端操作：push_back,push_front,pop_back,pop_front
 - 和vector类似，但存储方式不同，deque是按页或块来分配存储器，是分段连续的；vector时分配一段连续的内存
 - 特点：
